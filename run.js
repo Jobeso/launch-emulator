@@ -47,44 +47,45 @@ const run = () => {
   const cmd = spawn('xcrun', ['simctl', 'list'])
 
   cmd.stdout.on('data', data =>
-    getEmulatorData(data).then(devices => {
-      if (Object.keys(devices).length) {
-        inquirer
-          .prompt([
-            {
-              type: 'list',
-              name: 'chosenOS',
-              message: 'Choose the OS you want to use:',
-              choices: Object.keys(devices).reverse(),
-              pageSize: 40,
-            },
-          ])
-          .then(({ chosenOS }) =>
-            inquirer
-              .prompt([
-                {
-                  type: 'list',
-                  name: 'chosenDevice',
-                  message: 'Choose the device you want to use:',
-                  choices: devices[chosenOS].map(item => item.name),
-                  pageSize: 40,
-                },
-              ])
-              .then(({ chosenDevice }) => {
-                const device = devices[chosenOS].reduce(
-                  (acc, curr) => (curr.name === chosenDevice ? curr : acc),
-                  {}
-                )
-
-                spawn('xcrun', ['simctl', 'boot', device.id])
-                spawn('open', [
-                  '/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app',
+    getEmulatorData(data)
+      .then(devices => {
+        if (Object.keys(devices).length) {
+          inquirer
+            .prompt([
+              {
+                type: 'list',
+                name: 'chosenOS',
+                message: 'Choose the OS you want to run:',
+                choices: Object.keys(devices).reverse(),
+                pageSize: 40,
+              },
+            ])
+            .then(({ chosenOS }) =>
+              inquirer
+                .prompt([
+                  {
+                    type: 'list',
+                    name: 'chosenDevice',
+                    message: 'Choose the device you want to use:',
+                    choices: devices[chosenOS].map(item => item.name),
+                    pageSize: 40,
+                  },
                 ])
-              })
-              .catch(e => (console.error(e), process.exit(0)))
-          )
-      }
-    })
+                .then(({ chosenDevice }) => {
+                  const device = devices[chosenOS].reduce(
+                    (acc, curr) => (curr.name === chosenDevice ? curr : acc),
+                    {}
+                  )
+
+                  spawn('xcrun', ['simctl', 'boot', device.id])
+                  spawn('open', [
+                    '/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app',
+                  ])
+                })
+            )
+        }
+      })
+      .catch(e => (console.error(e), process.exit(1)))
   )
 }
 

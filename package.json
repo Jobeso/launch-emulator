@@ -1,4 +1,13 @@
 {
+  "name": "launch-emulator",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/Jobeso/launch-emulator"
+  },
+  "bin": {
+    "launch-emulator": "./run.js"
+  },
   "dependencies": {
     "commander": "^2.19.0",
     "inquirer": "^6.2.0"
