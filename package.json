@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "commander": "^2.19.0",
+    "inquirer": "^6.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.7.0",
+    "prettier": "^1.14.3"
+  }
+}
