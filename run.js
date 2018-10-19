@@ -91,6 +91,5 @@ const run = () => {
 program
   .version('0.1.0')
   .usage('./launchEmulator.js')
+  .action(run)
   .parse(process.argv)
-
-run()
