@@ -2,8 +2,14 @@
   "name": "launch-emulator",
   "description": "Command line interface for launching an emulator for iOS and Android",
   "main": "run.js",
-  "version": "0.1.0",
-  "keywords": ["launch emulator", "launch simulator", "simulator cli", "emulator cli", "run simulator from command line"],
+  "version": "0.1.1",
+  "keywords": [
+    "launch emulator",
+    "launch simulator",
+    "simulator cli",
+    "emulator cli",
+    "run simulator from command line"
+  ],
   "author": "Johannes Sorg",
   "license": "MIT",
   "repository": {
